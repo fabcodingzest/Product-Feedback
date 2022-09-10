@@ -46,7 +46,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-3/4">
         <div className="bg-dark-blue h-[72px] rounded-lg flex justify-between items-center p-4">
           <div className="flex justify-between items-center gap-3">
             <Bulb />
