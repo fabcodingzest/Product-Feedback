@@ -1,14 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Bulb, DesktopBg } from "../assets";
 import BulletItem from "../components/BulletItem";
 import Button from "../components/Button";
 import Chip from "../components/Chip";
 import Dropdown from "../components/Dropdown";
+import FeedbackCard from "../components/FeedbackCard";
 import { chips, roadmapList, sortByCategory } from "../utilities/constants";
 
 function Home() {
   const [filter, setFilter] = useState("All");
   const [sortBy, setSortBy] = useState("Most Voted");
+  const [feedbackData, setFeedbackData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setLoading(true);
+    const getData = async () => {
+      fetch("data.json", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setFeedbackData(res.productRequests);
+          setLoading(false);
+          setError(false);
+        })
+        .catch((err) => {
+          setLoading(false);
+          setError("Oops, Something went wrong. Please try again later.");
+        });
+    };
+    getData();
+  }, []);
 
   return (
     <div className="flex w-full gap-8">
@@ -26,7 +53,7 @@ function Home() {
               text={item}
               key={item}
               filter={filter}
-              setFilter={setFilter}
+              onClick={() => setFilter(item)}
             />
           ))}
         </div>
@@ -65,7 +92,25 @@ function Home() {
           </div>
           <Button text="+ Add FeedBack" color="violet" bg />
         </div>
-        <div className="flex justify-center flex-wrap gap-4 p-2"></div>
+        <div>
+          {loading ? (
+            <div className="h-[75vh] w-full bg-white rounded-lg mt-4 flex justify-center items-center text-center">
+              <p className="text-4xl text-dark-grey">Loading...</p>
+            </div>
+          ) : error ? (
+            <div className="h-[75vh] w-full bg-white rounded-lg mt-4 flex justify-center items-center text-center">
+              <p className="text-4xl text-dark-grey">
+                Something went wrong :(
+                <br />
+                {error}
+              </p>
+            </div>
+          ) : (
+            feedbackData.map((feedback) => (
+              <FeedbackCard key={feedback.id} data={feedback} />
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
