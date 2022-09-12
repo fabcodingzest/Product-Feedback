@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
+      borderRadius: {
+        lg: "10px",
+      },
       colors: {
         violet: "#AD1FEA",
         "light-purple": "#CFD7FF",
