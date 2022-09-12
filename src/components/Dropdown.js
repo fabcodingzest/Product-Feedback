@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowUp, Tick } from "../assets";
+import { ArrowDown, ArrowUp, Tick } from "../assets";
 
 const DropdownItem = ({ text, sortBy, setSortBy }) => {
   const isActive = sortBy === text;
@@ -26,7 +26,7 @@ function Dropdown({ btnText, options, sortBy, setSortBy }) {
         className="relative z-10 bg-transparent text-xs text-grey cursor-pointer flex justify-between items-center gap-1 w-full"
         onClick={toggleDropdown}>
         {btnText}
-        <ArrowUp />
+        {dropdownOpen ? <ArrowUp /> : <ArrowDown />}
       </button>
       <button
         onClick={() => setDropdownOpen(false)}
