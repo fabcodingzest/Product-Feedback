@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Bulb } from "../assets";
+import { Bulb, EmptyIllustration } from "../assets";
 import Button from "../components/Button";
 import Dropdown from "../components/Dropdown";
 import FeedbackCard from "../components/FeedbackCard";
@@ -10,14 +10,16 @@ function Home() {
   const [filter, setFilter] = useState("All");
   const [sortBy, setSortBy] = useState("Most Voted");
   const [responseData, setResponseData] = useState({
-    feedbacks: [],
+    data: [],
+    user: null,
     loading: false,
     error: "",
   });
-  const { feedbacks, loading, error } = responseData;
+  const { data, loading, error } = responseData;
+  const [feedbacks, setFeedbacks] = useState(data);
   useEffect(() => {
-    setResponseData((prev) => ({ ...prev, loading: true }));
     const getData = async () => {
+      setResponseData((prev) => ({ ...prev, loading: true }));
       fetch("data.json", {
         headers: {
           "Content-Type": "application/json",
@@ -26,11 +28,14 @@ function Home() {
       })
         .then((res) => res.json())
         .then((res) => {
+          console.log(res);
           setResponseData({
-            feedbacks: res.productRequests,
+            data: res.productRequests,
+            user: res.currentUser,
             loading: false,
             error: false,
           });
+          setFeedbacks(res.productRequests);
         })
         .catch((err) => {
           setResponseData((prev) => ({
@@ -48,7 +53,12 @@ function Home() {
 
   return (
     <div className="flex w-full gap-8">
-      <Sidebar filter={filter} setFilter={setFilter} />
+      <Sidebar
+        filter={filter}
+        setFilter={(item) => setFilter(item)}
+        allFeedback={data}
+        setFeedbacks={setFeedbacks}
+      />
       <div className="w-3/4">
         <div className="bg-dark-blue h-[72px] rounded-lg flex justify-between items-center p-4">
           <div className="flex justify-between items-center gap-3">
@@ -68,7 +78,7 @@ function Home() {
               }
             />
           </div>
-          <Button text="+ Add FeedBack" color="violet" bg />
+          <Button text="+ Add Feedback" color="violet" bg />
         </div>
         <div>
           {loading ? (
@@ -83,10 +93,22 @@ function Home() {
                 {error}
               </p>
             </div>
-          ) : (
+          ) : feedbacks.length > 0 ? (
             feedbacks.map((feedback) => (
               <FeedbackCard key={feedback.id} data={feedback} />
             ))
+          ) : (
+            <div className="h-[75vh] w-full bg-white rounded-lg mt-4 flex flex-col justify-center items-center text-center">
+              <EmptyIllustration />
+              <h1 className="text-3xl py-3 font-bold">
+                There is no feedback yet.
+              </h1>
+              <h3 className="max-w-md text-sm text-dark-grey mb-8">
+                Got a suggestion? Found a bug that needs to be squashed? We love
+                hearing about new ideas to improve our app.
+              </h3>
+              <Button text="+ Add Feedback" color="violet" bg />
+            </div>
           )}
         </div>
       </div>
