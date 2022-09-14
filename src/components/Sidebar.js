@@ -1,10 +1,9 @@
 import React from "react";
 import { DesktopBg } from "../assets";
-import { chips, roadmapList } from "../utilities/constants";
 import BulletItem from "./BulletItem";
-import Chip from "./Chip";
+import SidebarFilter from "./SidebarFilter";
 
-function Sidebar({ filter, setFilter }) {
+function Sidebar({ filter, setFilter, allFeedback, setFeedbacks }) {
   return (
     <div className="w-1/4 flex flex-col gap-6">
       <div className="relative text-white rounded-lg overflow-hidden">
@@ -14,16 +13,12 @@ function Sidebar({ filter, setFilter }) {
           <h3 className="text-sm font-medium opacity-75">Feedback Board</h3>
         </div>
       </div>
-      <div className="bg-white font-bold flex p-4 rounded-lg flex-wrap gap-x-2 gap-y-3">
-        {chips.map((item) => (
-          <Chip
-            text={item}
-            key={item}
-            filter={filter}
-            onClick={() => setFilter(item)}
-          />
-        ))}
-      </div>
+      <SidebarFilter
+        filter={filter}
+        setFilter={setFilter}
+        allFeedback={allFeedback}
+        setFeedbacks={setFeedbacks}
+      />
       <div className="bg-white px-6 py-3 rounded-lg">
         <div className="flex justify-between items-center pb-2">
           <p className="text-md font-bold">Roadmap</p>
