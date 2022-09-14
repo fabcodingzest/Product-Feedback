@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUp, Comment } from "../assets";
+import { Comment } from "../assets";
 import Chip from "./Chip";
 import UpVotes from "./UpVotes";
 
@@ -8,7 +8,7 @@ function FeedbackCard({
 }) {
   return (
     <div className="flex just-between gap-8 bg-white my-5 px-8 py-6 rounded-lg">
-      <UpVotes upvotes={upvotes} vertical/>
+      <UpVotes upvotes={upvotes} vertical />
       <div className="flex justify-between items-center w-full">
         <div>
           <h5 className="text-lg font-bold text-darker-blue">{title}</h5>
