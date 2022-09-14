@@ -1,5 +1,6 @@
 import React from "react";
 import { DesktopBg } from "../assets";
+import { roadmapList } from "../utilities/constants";
 import BulletItem from "./BulletItem";
 import SidebarFilter from "./SidebarFilter";
 
