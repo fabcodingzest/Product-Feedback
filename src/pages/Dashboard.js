@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Bulb, EmptyIllustration } from "../assets";
 import Button from "../components/Button";
-import Dropdown from "../components/Dropdown";
+import Dropdown from "../components/Dropdown/Dropdown";
 import FeedbackCard from "../components/FeedbackCard";
 import Sidebar from "../components/Sidebar";
 import { sortByCategory } from "../utilities/constants";
@@ -47,19 +47,18 @@ function Home() {
     };
     getData();
   }, []);
-  console.log(feedbacks);
   const suggestions =
     feedbacks.filter((item) => item.status === "suggestion").length || 0;
 
   return (
-    <div className="flex w-full gap-8">
+    <div className="flex flex-col w-full gap-8 md:flex-row">
       <Sidebar
         filter={filter}
         setFilter={(item) => setFilter(item)}
         allFeedback={data}
         setFeedbacks={setFeedbacks}
       />
-      <div className="w-3/4">
+      <div className="w-full md:w-3/4">
         <div className="bg-dark-blue h-[72px] rounded-lg flex justify-between items-center p-4">
           <div className="flex justify-between items-center gap-3">
             <Bulb />
@@ -67,14 +66,14 @@ function Home() {
               {suggestions} Suggestions
             </h2>
             <Dropdown
-              sortBy={sortBy}
-              setSortBy={setSortBy}
+              active={sortBy}
+              setActive={setSortBy}
               options={sortByCategory}
               btnText={
-                <>
+                <div className="text-grey">
                   Sort by :{" "}
-                  <span className="text-sm text-white">Most Upvotes</span>
-                </>
+                  <span className="text-sm font-semibold">Most Upvotes</span>
+                </div>
               }
             />
           </div>
