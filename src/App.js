@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Dashboard } from "./pages";
+import CreateFeedback from "./pages/CreateFeedback";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/create" element={<CreateFeedback />} />
         </Routes>
       </div>
     </div>
