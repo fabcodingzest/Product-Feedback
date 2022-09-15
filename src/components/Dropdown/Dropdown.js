@@ -1,20 +1,8 @@
 import React, { useState } from "react";
-import { ArrowDown, ArrowUp, Tick } from "../assets";
+import { ArrowDown, ArrowUp } from "../../assets";
+import DropdownItem from "./DropdownItem";
 
-const DropdownItem = ({ text, sortBy, setSortBy }) => {
-  const isActive = sortBy === text;
-  return (
-    <button
-      className={`bg-white w-full text-left p-2 border-[1px] first:rounded-t-lg last:rounded-b-lg  hover:text-violet ${
-        isActive ? "flex justify-between items-center text-violet" : "block"
-      }`}
-      onClick={() => setSortBy(text)}>
-      {text} {isActive && <Tick className="mr-2" />}
-    </button>
-  );
-};
-
-function Dropdown({ btnText, options, sortBy, setSortBy }) {
+function Dropdown({ btnText, options, active, setActive }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -23,7 +11,7 @@ function Dropdown({ btnText, options, sortBy, setSortBy }) {
   return (
     <div className="relative filter pl-2">
       <button
-        className="relative z-10 bg-transparent text-xs text-grey cursor-pointer flex justify-between items-center gap-1 w-full"
+        className="relative z-10 text-xs text-grey cursor-pointer flex justify-between items-center gap-1 w-full"
         onClick={toggleDropdown}>
         {btnText}
         {dropdownOpen ? <ArrowUp /> : <ArrowDown />}
@@ -42,8 +30,8 @@ function Dropdown({ btnText, options, sortBy, setSortBy }) {
           <DropdownItem
             key={item}
             text={item}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
+            active={active}
+            setActive={setActive}
           />
         ))}
       </div>
