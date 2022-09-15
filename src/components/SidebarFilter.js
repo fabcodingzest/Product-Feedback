@@ -4,7 +4,7 @@ import Chip from "./Chip";
 
 function SidebarFilter({ filter, setFilter, allFeedback, setFeedbacks }) {
   return (
-    <div>
+    <div className="w-1/3 flex items-stretch md:w-full md:h-min">
       <div className="bg-white font-bold flex p-4 rounded-lg flex-wrap gap-x-2 gap-y-3">
         {chips.map((item) => (
           <Chip

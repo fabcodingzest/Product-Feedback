@@ -6,8 +6,8 @@ import SidebarFilter from "./SidebarFilter";
 
 function Sidebar({ filter, setFilter, allFeedback, setFeedbacks }) {
   return (
-    <div className="w-1/4 flex flex-col gap-6">
-      <div className="relative text-white rounded-lg overflow-hidden">
+    <div className="w-full md:w-1/4 flex md:flex-col gap-4 md:gap-6 justify-between md:justify-start">
+      <div className="relative text-white rounded-lg overflow-hidden w-1/3 md:w-full">
         <img className="object-cover h-full w-full" src={DesktopBg} alt="" />
         <div className="absolute bottom-4 left-4 text-left w-full">
           <h1 className="font-bold">Frontend Mentor</h1>
@@ -20,7 +20,7 @@ function Sidebar({ filter, setFilter, allFeedback, setFeedbacks }) {
         allFeedback={allFeedback}
         setFeedbacks={setFeedbacks}
       />
-      <div className="bg-white px-6 py-3 rounded-lg">
+      <div className="bg-white px-6 py-3 rounded-lg w-1/3 md:w-full">
         <div className="flex justify-between items-center pb-2">
           <p className="text-md font-bold">Roadmap</p>
           <a href="/view" className="text-xs font-semibold text-blue underline">
